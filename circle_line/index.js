@@ -145,3 +145,23 @@ const lineToLineCollision = (wall1, wall2) => {
     return null;
 }
 
+const closestPointOnLine = (wall, circle) => {
+    const a = wall.p2.y - wall.p1.y;
+    const b = wall.p1.x - wall.p2.x;
+
+    const c1 = a * wall.p1.x + b * wall.p1.y;
+    const c2 = -b * circle.position.x + a * circle.position.y;
+
+    const det = a * a + b * b;
+    let cx = cy = 0;
+
+    if (det != 0) {
+        cx = (a * c1 - b * c2) / det;
+        cy = (a * c2 + b * c1) / det;
+    } else {
+        cx = circle.position.x;
+        cy = circle.position.y;
+    }
+
+    return new Point(cx, cy);
+}
